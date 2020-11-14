@@ -11,7 +11,12 @@ $(document).ready(function() {
             return;
         }
         var cityName = $("#city-name").val();
+
+        console.log(cityName);
         searchArray.push(cityName);
+        localStorage.setItem('searchedCities', searchArray);
+        
+        
         $("#city-name").val("");
         var queryURL = "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=" + cityName + APIKey;
         
@@ -19,7 +24,6 @@ $(document).ready(function() {
             url:queryURL,
             method: "GET"
         }).then(function(response) {
-            console.log(response);
             var city = response.name;
             $("#city").text(city);
             var temp = response.main.temp;
@@ -33,6 +37,8 @@ $(document).ready(function() {
             var iconSrc = "https://openweathermap.org/img/w/" + icon + ".png";
             iconDiv.attr("src", iconSrc);
             $("#icon").html(iconDiv);
+
+            
 
             renderHistory();
   
@@ -54,7 +60,6 @@ $(document).ready(function() {
             url:queryURL2,
             method: "GET"
         }).then(function(response) {
-            console.log(response);
             var date = response.list[0].dt_txt;
             $("#date").text(date);
             var day1 = response.list[7].dt_txt;
@@ -119,4 +124,7 @@ $(document).ready(function() {
 
         
     })
+
+    $("#search-history").val(localStorage.getItem(searchedCities));
+
 })
