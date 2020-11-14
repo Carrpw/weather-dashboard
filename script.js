@@ -38,7 +38,18 @@ $(document).ready(function() {
   
         })
 
+        function renderHistory() {
+            $("#search-history").empty();
+            for (var i = 0; i < searchArray.length; i++) {
+                var searchBtn = $("<li>", "<button>").addClass("btn list-group-item");
+                searchBtn.attr("data-name", searchArray[i]);
+                searchBtn.text(searchArray[i]);
+                $("#search-history").prepend(searchBtn);
+              }
+        }
+
         
+        })
 
         
     })
